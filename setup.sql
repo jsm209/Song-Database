@@ -14,32 +14,30 @@ USE rdr_song_db;
 
 -- Artists Table
 DROP TABLE IF EXISTS Artists;
-CREATE TABLE Artists {
+CREATE TABLE Artists (
   id int NOT NULL AUTO_INCREMENT,
-  date_created DATETIME NOT NULL DEFAULT(GETDATE())
   name VARCHAR(100),
   PRIMARY KEY (id)
-};
+);
 
 -- Song Table
 DROP TABLE IF EXISTS Songs;
-CREATE TABLE Songs {
+CREATE TABLE Songs (
   id int NOT NULL AUTO_INCREMENT,
-  date_created DATETIME NOT NULL DEFAULT(GETDATE())
   name VARCHAR(100),
   artist INT,
+  release_date DATE,
   album INT,
   genre VARCHAR(100),
+  medium VARCHAR(100),
   PRIMARY KEY (id)
-};
+);
 
 -- Album Table
-DROP TABLE IF EXISTS Album;
-CREATE TABLE Album {
+DROP TABLE IF EXISTS Albums;
+CREATE TABLE Albums (
   id int NOT NULL AUTO_INCREMENT,
-  date_created DATETIME NOT NULL DEFAULT(GETDATE())
   name VARCHAR(100),
   artist INT,
-  release_date DATE(),
   PRIMARY KEY (id)
-};
+);
