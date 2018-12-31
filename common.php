@@ -69,7 +69,7 @@
   // insert_album.php
 
   /*
-   * Inserts the given album name into the albums table.
+   * Inserts the given album into the albums table.
    * @param $album_name {String} - The name of the album.
    * @param $artist_name {String} - The name of the artist.
    * @param $db {PDO Object} - The PDO object for the referenced database.
@@ -86,15 +86,15 @@
    * Checks if the name of the given album by a specific artist exists in the
    * given database.
    * @param $album_name {String} - The name of the album.
-   * @param $artist_name {String} - The name of the artist.
+   * @param $artist_id {String} - The id of the artist.
    * @param $db {PDO Object} - The PDO object for the referenced database.
   */
-  function album_in_table($album_name, $artist_name, $db) {
+  function album_in_table($album_name, $artist_id, $db) {
       try {
-          $sql = "SELECT * FROM Albums WHERE name=:album_name AND artist=:artist_name;";
+          $sql = "SELECT * FROM Albums WHERE name=:album_name AND artist=:artist_id;";
           $stmt = $db->prepare($sql);
           $params = array("album_name" => $album_name,
-                          "artist_name" => $artist_name);
+                          "artist_id" => $artist_id);
           $stmt->execute($params);
           return (count($stmt->fetchAll()) > 0);
       }
@@ -120,6 +120,75 @@
     }
     catch(PDOException $ex) {
       catch_error("The artist ID for that artist failed to be found", $ex);
+    }
+  }
+
+  ///////////////////////////////////
+  // FUNCTIONS FOR INSERTIMG SONGS //
+  ///////////////////////////////////
+  // Used in the following files:
+  // insert_song.php
+
+  /*
+   * Inserts the given song into the albums table.
+   * @param $album_name {String} - The name of the album.
+   * @param $artist_name {String} - The name of the artist.
+   * @param $db {PDO Object} - The PDO object for the referenced database.
+  */
+  function insert_song($song_name, $artist_id, $release_date, $album_id, $genre, $medium, $db) {
+    $sql = "INSERT INTO Songs (name, artist, release_date, album, genre, medium) VALUES (:name, :artist, :release_date, :album, :genre, :medium);";
+    $stmt = $db->prepare($sql);
+    $params = array("name" => $song_name,
+                    "artist" => $artist_id,
+                    "release_date" => $release_date,
+                    "album" => $album_id,
+                    "genre" => $genre,
+                    "medium" => $medium);
+    $stmt->execute($params);
+  }
+
+  /*
+   * Checks if the name of the given song by a specific artist on a specific album
+   * exists in the given database.
+   * @param $song_name {String} - The name of the song.
+   * @param $artist_id {String} - The id of the artist.
+   * @param $album_id {String} - The id of the album.
+   * @param $db {PDO Object} - The PDO object for the referenced database.
+  */
+  function song_in_table($song_name, $artist_id, $album_id, $db) {
+      try {
+          $sql = "SELECT * FROM Songs WHERE name=:song_name AND artist=:artist_id AND album=:album_id;";
+          $stmt = $db->prepare($sql);
+          $params = array("song_name" => $song_name,
+                          "artist_id" => $artist_id,
+                          "album_id" => $album_id);
+          $stmt->execute($params);
+          return (count($stmt->fetchAll()) > 0);
+      }
+      catch(PDOException $ex) {
+          return false;
+      }
+  }
+
+  /*
+   * Gets the album id that corresponds to the given album name by a particular artist.
+   * @param $album_name {String} - The name of the album.
+   * @param $artist_id {String} - The id of the artist.
+   * @param $db {PDO Object} - The PDO object for the referenced database.
+  */
+  function get_album_id($album_name, $artist_id, $db) {
+    try {
+      $sql = "SELECT * FROM Albums WHERE name=:album_name AND artist=:artist_id;";
+      $stmt = $db->prepare($sql);
+      $params = array("album_name" => $album_name,
+                      "artist_id" => $artist_id);
+      $stmt->execute($params);
+      $arr = $stmt->fetchAll();
+      // $arr is an array with row data inside a reponse array.
+      return $arr[0]["id"];
+    }
+    catch(PDOException $ex) {
+      catch_error("The album ID for that artist failed to be found", $ex);
     }
   }
 

@@ -5,7 +5,7 @@
     $artist_name = $_POST["artist_name"];
     $album_name = $_POST["album_name"];
 
-    // It is OK if the artist is already in the database.
+    // If there isn't already an artist with this name by this artist, add it.
     if (!artist_in_table($artist_name, $db)) {
       try {
         insert_artist($artist_name, $db);
@@ -17,11 +17,11 @@
     }
 
     // Attempts to insert the album, first checking for conflicts.
-    if (album_in_table($album_name, $artist_name, $db)) {
-      error("Album called " . $album_name . " by " . $artist_name . " already in the albums table.");
+    $artist_id = get_artist_id($artist_name, $db);
+    if (album_in_table($album_name, $artist_id, $db)) {
+      error("Album called " . $album_name . " by " . $artist_name . " is already in the albums table.");
     } else {
       try {
-        $artist_id = get_artist_id($artist_name, $db);
         insert_album($album_name, $artist_id, $db);
         success("Added " . $album_name . " by " . $artist_name . " to the albums table.");
       }
