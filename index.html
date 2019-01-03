@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+    <title>title</title>
+  </head>
+  <body>
+    <main>
+      <div id="header">
+        <img src="rdr_logo.jpg" id="logo" class="img-thumbnail rounded float-left" alt="Rainy Dawg Radio logo">
+        <h1 class="display-4">Rainy Dawg Radio Song Database</h1>
+      </div>
+      <div id="song-form">
+        <div>
+          <div class="form-group">
+            <label for="song_name">Song Name</label>
+            <input type="text" class="form-control" id="song_name" placeholder="What is the song called?">
+          </div>
+          <div class="form-group">
+            <label for="artist_name">Song Artist</label>
+            <input type="text" class="form-control" id="artist_name" placeholder="Who wrote the song?">
+          </div>
+          <div class="form-group">
+            <label for="song_release_date">Release Date</label>
+            <input type="date" class="form-control" id="song_release_date" placeholder="When was the song released?">
+          </div>
+          <div class="form-group">
+            <label for="album_name">Album</label>
+            <input type="text" class="form-control" id="album_name" placeholder="What album does the song belong to? (Write 'single' if it doesn't belong to one)">
+          </div>
+          <div class="form-group">
+            <label for="song_genre">Genre</label>
+            <input type="text" class="form-control" id="song_genre" placeholder="What is the genre of the song? (Not necessarily the genre for the entire album)">
+          </div>
+          <div class="form-group">
+            <label for="song_medium">Medium</label>
+            <select class="form-control" id="song_medium">
+              <option>CD</option>
+              <option>Vinyl</option>
+              <option>Digital</option>
+            </select>
+          <div>
+          <br>
+          <button id="submit">Submit</button>
+        </div>
+      </div>
+    </main>
+    <footer>
+    </footer>
+  </body>
+</html>
