@@ -1,4 +1,4 @@
-#song-form {
+#song-form, #song-search {
   width: 60%;
   margin: auto;
 }
@@ -8,8 +8,12 @@
   height: auto;
 }
 
-#header {
+#titlebar {
   width: 60%;
   margin: auto;
   padding-bottom: 20px;
+}
+
+.hidden {
+	display: none ;
 }
