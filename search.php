@@ -9,6 +9,9 @@
   // references artists and albums by an id number. There are 4 functions here
   // to switch back and forth between id and name of artist or album.
 
+  // ** A better way to do this would be to get the entire row and store its name
+  // and id instead of constantly making queries.
+
   include ("common.php");
   $db = get_PDO();
   if (isset($_GET["column"], $_GET["term"])) {
@@ -38,6 +41,7 @@
     try {
       // "name" column refers to song name in SQL database
       $sql = "SELECT * FROM Songs WHERE $column=:term ORDER BY name;";
+      // 
       $stmt = $db->prepare($sql);
       $params = array(":term" => $term);
       $stmt->execute($params);
