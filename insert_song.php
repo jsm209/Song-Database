@@ -1,5 +1,6 @@
 <?php
   include ("common.php");
+  header("Access-Control-Allow-Origin: *");
   $db = get_PDO();
   $params_needed = ["song_name", "artist_name", "song_release_date",
                     "album_name", "song_genre", "song_medium"];

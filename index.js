@@ -5,6 +5,25 @@
 (function() {
   "use strict";
 
+  let fakeData = [
+    {
+      song_name: "Never Gonna Give You Up",
+      artist_name: "Grimes",
+      song_release_date: "1/15/2017",
+      album_name: "Beautiful",
+      song_genre: "Pop",
+      song_medium: "Digital"
+    },
+    {
+      song_name: "Never Gonna Give You Up",
+      artist_name: "Grimes",
+      song_release_date: "1/15/2017",
+      album_name: "Beautiful",
+      song_genre: "Pop",
+      song_medium: "Digital"
+    }
+  ];
+
   // MODULE GLOBAL VARIABLES, CONSTANTS, AND HELPER FUNCTIONS CAN BE PLACED
   // HERE
 
@@ -21,6 +40,7 @@
       console.log("This button was clicked.");
       submit();
     });
+    $("submit2").addEventListener("click", searchSongs);
   }
 
   /**
@@ -40,7 +60,7 @@
     params.append("album_name", $("album_name").value);
     params.append("song_genre", $("song_genre").value);
     params.append("song_medium", $("song_medium").value);
-    fetch("insert_song.php", {
+    fetch("http://localhost:3030/insert_song.php", {
       method: "POST",
       body: params
     })
@@ -48,6 +68,32 @@
     .then(JSON.parse)
     .then(console.log())
     .catch(console.log);
+  }
+
+  function searchSongs() {
+    // fetch("http://localhost:3030/search.php?column=song&rows=hi")
+    fetch("http://localhost:3306/search.php?column=song&rows=hi")
+    .then(checkStatus)
+    .then(JSON.parse)
+    .then(renderSongs)
+    .catch(console.log);
+  }
+
+  function renderSongs(songArray) {
+    console.log(songArray);
+    let tableArea = $("results-table");
+    songArray.forEach((songObj) => {
+      let newRow = document.createElement("tr");
+      let keys = Object.keys(songObj);
+      keys.forEach((key) => {
+        if (key != "id") {
+          let data = document.createElement("td");
+          data.innerText = songObj[key];
+          newRow.appendChild(data);
+        }
+      });
+      tableArea.appendChild(newRow);
+    });
   }
 
   /**
@@ -105,6 +151,6 @@
 		} else {
 			return Promise.reject(new Error(response.status + ": " + response.statusText));
 		}
-	}
+  }
 
 })();

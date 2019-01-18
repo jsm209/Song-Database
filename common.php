@@ -10,7 +10,7 @@
    */
   function get_PDO() {
     $host = "localhost";
-    $port = "3306";
+    $port = "3307";
     $user = "root";
     $password = "root";
     $dbname = "rdr_song_db";
