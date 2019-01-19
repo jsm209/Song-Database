@@ -18,10 +18,11 @@
     <div id="titlebar">
       <img src="rdr_logo.jpg" id="logo" class="img-thumbnail rounded float-left" alt="Rainy Dawg Radio logo">
       <h1 class="display-4">Rainy Dawg Radio Song Database</h1>
-      <a class="btn btn-dark" href="#">Add Song</a>
-      <a class="btn btn-dark" href="#">Search Songs</a>
+      <button class="btn btn-dark" id="menu-add">Add Songs</button>
+      <button class="btn btn-dark" id="menu-search">Search Songs</button>
     </div>
-    <div id="song-form">
+    <br>
+    <div id="song-form" class="hidden">
       <div>
         <div class="form-group">
           <label for="song_name">Song Name</label>
@@ -52,29 +53,29 @@
           </select>
         </div>
         <br>
+        <p id="feedback">All fields must be filled in to submit song.</p>
         <button class="btn btn-primary" id="submit">Submit</button>
       </div>
     </div>
     <div id="song-search">
       <div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="song_name">
-          <label class="form-check-label" for="inlineRadio1">Song Name</label>
+        <select id="search-column">
+          <option value="name">Song Name</option>
+          <option value="artist">Artist Name</option>
+          <option value="release_date">Release Date</option>
+          <option value="album">Album</option>
+          <option value="genre">Genre</option>
+          <option value="medium">Medium</option>
+        </select>
+        <br>
+        <br>
+        <input type="text" class="form-control" placeholder="Enter search term" id="search-term">
         </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="artist_name">
-          <label class="form-check-label" for="inlineRadio2">Artist Name</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="song_genre">
-          <label class="form-check-label" for="inlineRadio2">Song Genre</label>
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter search term">
-        </div>
-        <button class="btn btn-primary" id="submit2">Submit</button>
+        <br>
+        <button class="btn btn-primary" id="search">Search</button>
       </div>
     </div>
+    <br>
     <section id="results-area">
       <h3>Songs</h3>
       <table class="table">

@@ -1,55 +1,30 @@
-//
-// -- your description of what this file does here --
-//
-
 (function() {
   "use strict";
 
-  let fakeData = [
-    {
-      song_name: "Never Gonna Give You Up",
-      artist_name: "Grimes",
-      song_release_date: "1/15/2017",
-      album_name: "Beautiful",
-      song_genre: "Pop",
-      song_medium: "Digital"
-    },
-    {
-      song_name: "Never Gonna Give You Up",
-      artist_name: "Grimes",
-      song_release_date: "1/15/2017",
-      album_name: "Beautiful",
-      song_genre: "Pop",
-      song_medium: "Digital"
-    }
-  ];
-
-  // MODULE GLOBAL VARIABLES, CONSTANTS, AND HELPER FUNCTIONS CAN BE PLACED
-  // HERE
-
-  /**
-   *  Add a function that will be called when the window is loaded.
-   */
   window.addEventListener("load", initialize);
 
-  /**
-   *  CHANGE: Describe what your initialize function does here.
-   */
   function initialize() {
     $("submit").addEventListener("click", function() {
-      console.log("This button was clicked.");
-      submit();
-    });
-    $("submit2").addEventListener("click", searchSongs);
-  }
+      if ($("song_name").value != "" && $("artist_name").value != "" &&
+          $("song_release_date").value != "" && $("album_name").value != "" &&
+          $("song_genre").value != "" && $("song_medium").value != "") {
+            submit();
+      } else {
+        $("feedback").innerText = "Please fill out the entire form before submitting.";
+      }
 
-  /**
-   *  Make sure to always add a descriptive comment above
-   *  every function detailing what it's purpose is
-   *  Use JSDoc format with @param and @return.
-   */
-  function exampleFunction1() {
-    /* SOME CODE */
+    });
+    $("search").addEventListener("click", searchSongs);
+    $("menu-add").addEventListener("click", function() {
+      $("song-form").classList.remove("hidden");
+      $("song-search").classList.add("hidden");
+      $("results-area").classList.add("hidden");
+    });
+    $("menu-search").addEventListener("click", function() {
+      $("song-form").classList.add("hidden");
+      $("song-search").classList.remove("hidden");
+      $("results-area").classList.remove("hidden");
+    });
   }
 
   function submit() {
@@ -60,19 +35,26 @@
     params.append("album_name", $("album_name").value);
     params.append("song_genre", $("song_genre").value);
     params.append("song_medium", $("song_medium").value);
-    fetch("http://localhost:3030/insert_song.php", {
+    fetch("insert_song.php", {
       method: "POST",
       body: params
     })
     .then(checkStatus)
     .then(JSON.parse)
-    .then(console.log())
+    .then(function() {
+      $("feedback").innerText = "Successfully added " + $("song_name").value + " to the library!";
+      $("song_name").value = "";
+      $("artist_name").value = "";
+      $("song_release_date").value = "";
+      $("album_name").value = "";
+      $("song_genre").value = "";
+      $("song_medium").value = "";
+    })
     .catch(console.log);
   }
 
   function searchSongs() {
-    // fetch("http://localhost:3030/search.php?column=song&rows=hi")
-    fetch("http://localhost:3306/search.php?column=song&rows=hi")
+    fetch("search.php?column=" + $("search-column").value + "&term=" + $("search-term").value)
     .then(checkStatus)
     .then(JSON.parse)
     .then(renderSongs)
@@ -80,6 +62,7 @@
   }
 
   function renderSongs(songArray) {
+    $("results-table").innerHTML = "";
     console.log(songArray);
     let tableArea = $("results-table");
     songArray.forEach((songObj) => {
@@ -94,17 +77,6 @@
       });
       tableArea.appendChild(newRow);
     });
-  }
-
-  /**
-   *  Make sure to always add a descriptive comment above
-   *  every function detailing what it's purpose is
-   *  @param {variabletype} someVariable This is a description of someVariable, including, perhaps, preconditions.
-   *  @returns A description of what this function is actually returning
-   */
-  function exampleFunction2(someVariable) {
-    /* SOME CODE */
-    return something;
   }
 
   /* ------------------------------ Helper Functions  ------------------------------ */

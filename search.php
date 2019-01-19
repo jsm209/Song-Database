@@ -19,7 +19,6 @@
     $column = $_GET["column"];
     $term = "";
     if ($column == "artist") {
-      print($_GET["term"]);
       $term = get_artist_id_from_name("'" . $_GET["term"] . "'", $db);
     } else if ($column == "album") {
       $term = get_album_id_from_name("'" . $_GET["term"] . "'", $db);
@@ -42,7 +41,7 @@
     try {
       // "name" column refers to song name in SQL database
       $sql = "SELECT * FROM Songs WHERE $column=:term ORDER BY name;";
-      /*       SELECT S.name as Song, AR.name as Artist, S.release_date, A.name as Album, S.genre, S.medium
+      /*    SELECT S.name as Song, AR.name as Artist, S.release_date, A.name as Album, S.genre, S.medium
             FROM Songs as S
             JOIN Albums as A ON S.album = A.id
             JOIN Artists as AR ON S.artist = AR.id
@@ -54,7 +53,7 @@
       $stmt->execute($params);
       $arr = $stmt->fetchALL(PDO::FETCH_ASSOC);
       $content = build_array_from_rows($arr, $db);
-      print (json_encode($content));
+      echo json_encode($content);
     }
     catch(PDOException $ex) {
       catch_error("The search failed.", $ex);

@@ -10,7 +10,7 @@
    */
   function get_PDO() {
     $host = "localhost";
-    $port = "3307";
+    $port = "3306";
     $user = "root";
     $password = "root";
     $dbname = "rdr_song_db";
@@ -21,7 +21,7 @@
       return $db;
     }
     catch(PDOException $ex) {
-      handle_error("There was a problem connecting to the database!", $ex);
+      catch_error("There was a problem connecting to the database!", $ex);
     }
   }
 
