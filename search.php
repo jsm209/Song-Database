@@ -77,6 +77,7 @@
       $content["album"] = get_album_name_from_id($row["album"], $db);
       $content["genre"] = $row["genre"];
       $content["medium"] = $row["medium"];
+      $content["id"] = $row["id"];
       array_push($output, $content);
     }
     return $output;

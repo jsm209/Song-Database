@@ -3,6 +3,13 @@
 
   window.addEventListener("load", initialize);
 
+  /**
+   * Adds an event listener to the song submit button to check that user gave
+   * all required fields.
+   * Adds event listeners to buttons to properly switch between submitting and
+   * searching songs.
+   * Adds an event listener to the search button to properly search songs.
+   */
   function initialize() {
     $("submit").addEventListener("click", function() {
       if ($("song_name").value != "" && $("artist_name").value != "" &&
@@ -27,6 +34,11 @@
     });
   }
 
+  /**
+   * Using the values input by the user into the song submit form, will add
+   * a song to the database. Once it adds the song, it will tell the user it
+   * has done so and clear the form of its fields.
+   */
   function submit() {
     let params = new FormData();
     params.append("song_name", $("song_name").value);
@@ -42,6 +54,7 @@
     .then(checkStatus)
     .then(JSON.parse)
     .then(function() {
+      // Gives user feedback that song has been added, clears the form.
       $("feedback").innerText = "Successfully added " + $("song_name").value + " to the library!";
       $("song_name").value = "";
       $("artist_name").value = "";
@@ -53,6 +66,10 @@
     .catch(console.log);
   }
 
+  /**
+   * Will search the song database by the given category and search term.
+   * After doing so, will render the results in the results table.
+   */
   function searchSongs() {
     fetch("search.php?column=" + $("search-column").value + "&term=" + $("search-term").value)
     .then(checkStatus)
@@ -61,6 +78,12 @@
     .catch(console.log);
   }
 
+  /**
+   * Given an array of songs, where each song is an array containing information
+   * about the song, will add a row to the table of results for each song containing
+   * the corresponding information for each song.
+   * @param {Array} songArray - The array of arrays of songs and their information.
+   */
   function renderSongs(songArray) {
     $("results-table").innerHTML = "";
     console.log(songArray);
@@ -69,11 +92,13 @@
       let newRow = document.createElement("tr");
       let keys = Object.keys(songObj);
       keys.forEach((key) => {
-        if (key != "id") {
+        // This has been commented out because the ID needs to be shown for
+        // easy song deletion. May or may not be reverted later.
+        //if (key != "id") {
           let data = document.createElement("td");
           data.innerText = songObj[key];
           newRow.appendChild(data);
-        }
+        //}
       });
       tableArea.appendChild(newRow);
     });
