@@ -63,7 +63,33 @@
       $("song_genre").value = "";
       $("song_medium").value = "";
     })
-    .catch(console.log);
+    .catch(function(error) {
+      $("feedback").innerText = error;
+    });
+  }
+
+  /**
+   * Will delete the song from the database that is contained in this
+   * particular table data row.
+   *
+   * WARNING: There is a key assumption that the previous element in the
+   * DOM is the element containing the id number of the song.
+   * In other words, the delete button immediately comes after the ID in the
+   * table for this to work.
+   */
+  function delete_song() {
+    let songName = this.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.innerText;
+    if (confirm("Are you sure you want to delete " + songName + "?")) {
+      let params = new FormData();
+      let id = this.previousSibling.innerText;
+      params.append("id", id);
+      fetch("delete_song.php", {method: "POST", body: params})
+        .then(checkStatus)
+        .then(function(response) {
+          searchSongs();
+        })
+        .catch(console.log);
+    }
   }
 
   /**
@@ -100,6 +126,10 @@
           newRow.appendChild(data);
         //}
       });
+      let btn = document.createElement("button");
+      btn.innerText = "X";
+      btn.addEventListener("click", delete_song);
+      newRow.appendChild(btn);
       tableArea.appendChild(newRow);
     });
   }

@@ -39,7 +39,7 @@
     // If there isn't already a song by this artist on the same album, then add it.
     $album_id = get_album_id($album_name, $artist_id, $db);
     if (song_in_table($song_name, $artist_id, $album_id, $db)) {
-      error("The song called " . $song_name . " by " . $artist_name . " on the album " . $album_name . "already exists.");
+      error("The song called " . $song_name . " by " . $artist_name . " on the album " . $album_name . " already exists.");
     } else {
       try {
         insert_song($song_name, $artist_id, $song_release_date, $album_id, $song_genre, $song_medium, $db);
