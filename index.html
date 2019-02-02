@@ -15,7 +15,15 @@
 
   </header>
   <main>
-    <div id="titlebar">
+    <div id="login">
+        <div>
+          <label>Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Ask RDR staff if you don't know.">
+          <small id="passwordHelp" class="form-text text-muted">Can't just let anyone in here.</small>
+        </div>
+        <button class="btn btn-primary" id="passwordSubmit">login</button>
+    </div>
+    <div id="titlebar" class="hidden">
       <img src="rdr_logo.jpg" id="logo" class="img-thumbnail rounded float-left" alt="Rainy Dawg Radio logo">
       <h1 class="display-4">Rainy Dawg Radio Song Database</h1>
       <button class="btn btn-dark" id="menu-add">Add Songs</button>
@@ -57,7 +65,7 @@
         <button class="btn btn-primary" id="submit">Submit</button>
       </div>
     </div>
-    <div id="song-search">
+    <div id="song-search" class="hidden">
       <div>
         <select id="search-column">
           <option value="name">Song Name</option>
@@ -76,7 +84,7 @@
       </div>
     </div>
     <br>
-    <section id="results-area">
+    <section id="results-area" class="hidden">
       <h3>Songs</h3>
       <table class="table">
         <thead class="thead-light">

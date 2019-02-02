@@ -1,16 +1,14 @@
 (function() {
   "use strict";
 
+  let PASSWORD = "password";
+
   window.addEventListener("load", initialize);
 
-  /**
-   * Adds an event listener to the song submit button to check that user gave
-   * all required fields.
-   * Adds event listeners to buttons to properly switch between submitting and
-   * searching songs.
-   * Adds an event listener to the search button to properly search songs.
-   */
   function initialize() {
+
+    // Event listener for the submit button at the end of the form for adding
+    // songs to the database.
     $("submit").addEventListener("click", function() {
       if ($("song_name").value != "" && $("artist_name").value != "" &&
           $("song_release_date").value != "" && $("album_name").value != "" &&
@@ -19,18 +17,34 @@
       } else {
         $("feedback").innerText = "Please fill out the entire form before submitting.";
       }
-
     });
+
+    // Event listener for clicking the menu button for "Add Song".
     $("search").addEventListener("click", searchSongs);
     $("menu-add").addEventListener("click", function() {
       $("song-form").classList.remove("hidden");
       $("song-search").classList.add("hidden");
       $("results-area").classList.add("hidden");
     });
+
+    // Event listener for clicking the menu button for "Search".
     $("menu-search").addEventListener("click", function() {
       $("song-form").classList.add("hidden");
       $("song-search").classList.remove("hidden");
       $("results-area").classList.remove("hidden");
+    });
+
+    // Event listener for login button.
+    $("passwordSubmit").addEventListener("click", function() {
+      if ($("password").value == PASSWORD) {
+        $("login").classList.add("hidden");
+        $("song-search").classList.remove("hidden");
+        $("results-area").classList.remove("hidden");
+        $("titlebar").classList.remove("hidden");
+      } else {
+        $("passwordHelp").innerText = "Incorrect password.";
+        $("password").value = "";
+      }
     });
   }
 
