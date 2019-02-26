@@ -8,9 +8,9 @@
 -- Ex: The columns for artist and album for "Songs", are intended to correspond
 -- to primary keys (IDs) of the appropriate artist and album.
 
-DROP DATABASE IF EXISTS rdr_song_db;
-CREATE DATABASE rdr_song_db;
-USE rdr_song_db;
+DROP DATABASE IF EXISTS rainydaw_song_db;
+CREATE DATABASE rainydaw_song_db;
+USE rainydaw_song_db;
 
 -- Artists Table
 DROP TABLE IF EXISTS Artists;

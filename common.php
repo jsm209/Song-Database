@@ -1,5 +1,5 @@
 <?php
-  error_reporting(E_ALL);
+  //error_reporting(E_ALL);
   ini_set("display_errors", 1);
   date_default_timezone_set("America/Los_Angeles");
 
@@ -11,9 +11,9 @@
   function get_PDO() {
     $host = "localhost";
     $port = "3306";
-    $user = "root";
-    $password = "root";
-    $dbname = "rdr_song_db";
+    $user = "root";//"rainydaw_song_db";
+    $password = "root";//"!Q2w#E4r";
+    $dbname = "rainydaw_song_db";
     $ds = "mysql:host={$host}:{$port};dbname={$dbname};charset=utf8";
     try {
       $db = new PDO($ds, $user, $password);

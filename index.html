@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
     crossorigin="anonymous">
   <link rel="stylesheet" href="index.css">
@@ -38,7 +39,7 @@
         </div>
         <div class="form-group">
           <label for="artist_name">Song Artist</label>
-          <input type="text" class="form-control" id="artist_name" placeholder="Who wrote the song?">
+          <input type="text" class="form-control" id="artist_name" placeholder="Who wrote the song? (Seperate multiple artists and featured singers with ',')">
         </div>
         <div class="form-group">
           <label for="song_release_date">Release Date</label>
@@ -50,7 +51,25 @@
         </div>
         <div class="form-group">
           <label for="song_genre">Genre</label>
-          <input type="text" class="form-control" id="song_genre" placeholder="What is the genre of the song? (Not necessarily the genre for the entire album)">
+          <select class="form-control" id="song_genre">
+            <option>Unset/NA</option>
+            <option>Alternative/Experimental</option>
+            <option>Classical</option>s
+            <option>Country</option>
+            <option>EDM</option>
+            <option>Electronic</option>
+            <option>Folk</option>
+            <option>Hip-Hop</option>
+            <option>Indie</option>
+            <option>Jazz</option>
+            <option>Metal</option>
+            <option>Other/Specialty</option>
+            <option>Pop</option>
+            <option>R&B</option>
+            <option>Reggae</option>
+            <option>Rock</option>
+            <option>World</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="song_medium">Medium</label>

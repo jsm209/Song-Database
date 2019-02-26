@@ -1,12 +1,15 @@
 (function() {
   "use strict";
 
-  let PASSWORD = "password";
+  // yo if for some reason you looked at the source files tab when you inspected
+  // the elements and found this password, good for you, you sly dog you.
+  // but seriously i'll replace this with a backend solution later, for now
+  // this will pass.
+  let PASSWORD = "rainydawg";
 
   window.addEventListener("load", initialize);
 
   function initialize() {
-
     // Event listener for the submit button at the end of the form for adding
     // songs to the database.
     $("submit").addEventListener("click", function() {
@@ -65,8 +68,9 @@
       method: "POST",
       body: params
     })
-    .then(checkStatus)
+    .then(JSON.stringify)
     .then(JSON.parse)
+    .then(console.log)
     .then(function() {
       // Gives user feedback that song has been added, clears the form.
       $("feedback").innerText = "Successfully added " + $("song_name").value + " to the library!";
@@ -78,6 +82,7 @@
       $("song_medium").value = "";
     })
     .catch(function(error) {
+      console.log("we giving errors like: " + error);
       $("feedback").innerText = error;
     });
   }
